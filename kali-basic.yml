@@ -1,0 +1,14 @@
+ludus:
+# 11/03/2024 dfir-jesseee 
+  - vm_name: "{{ range_id }}-kali2"
+    hostname: "{{ range_id }}-kali2"
+    template: kali-x64-desktop-template
+    vlan: 99
+    ip_last_octet: 13
+    ram_gb: 8
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: false
+      
