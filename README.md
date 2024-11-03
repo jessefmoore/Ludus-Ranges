@@ -6,4 +6,4 @@ For Ludus Ansible Roles: https://docs.ludus.cloud/docs/roles
 
 For Ludus Environment guides: https://docs.ludus.cloud/docs/category/environment-guides
 
-YouTube playlist on Ludus How to: https://tinyurl.com/jesseludus
+YouTube playlist on Ludus How to: https://tinyurl.com/How2LudusbyJesse
