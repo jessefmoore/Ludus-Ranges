@@ -1,0 +1,60 @@
+ludus:
+  - vm_name: "{{ range_id }}-EXC-DC01"
+    hostname: "{{ range_id }}-exchange"
+    template: win2019-server-x64-no-security-updates-template
+    vlan: 10
+    ip_last_octet: 25
+    ram_gb: 8
+    cpus: 4
+    windows:
+      sysprep: true
+    domain:
+      fqdn: ludus.domain
+      role: primary-dc
+    roles:
+      - aleemladha.ludus_exchange
+      - ludus-ad-content
+    role_vars:
+      ludus_ad:
+        ous:
+          - name: USA
+            path: DC=ludus,DC=domain
+            description: USA subsidiary
+          - name: Germany
+            path: DC=ludus,DC=domain
+            description: German subsidiary
+        groups:
+          - name: Sales USA
+            scope: global
+            path: "OU=USA,DC=ludus,DC=domain"
+            description: USA Sales Department
+          - name: Sales Germany
+            scope: global
+            path: "OU=Germany,DC=ludus,DC=domain"
+            description: Germany Sales Department
+          - name: IT
+            scope: global
+            path: "DC=ludus,DC=domain"
+            description: IT Department
+        users:
+          - name: jmoore
+            firstname: Jesse
+            surname: Moore
+            display_name: Jesse Moore
+            password: P@$$word123S
+            path: "DC=ludus,DC=domain"
+            description: IT System Administrator
+            groups:
+              - Domain Users
+              - IT
+          - name: localuser2
+            firstname: local
+            surname: User2
+            display_name: domain local user
+            password: P@$$word1234S
+            path: "DC=ludus,DC=domain"
+            description: IT System Administrator
+            groups:
+              - Domain Users
+              - IT
+
