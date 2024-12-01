@@ -1,0 +1,17 @@
+ludus:
+  - vm_name: "{{ range_id }}-bloodhound"
+    hostname: "{{ range_id }}-bloodhound"
+    template: debian-12-x64-server-template
+    vlan: 10
+    ip_last_octet: 77
+    ram_gb: 4
+    cpus: 2
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: false
+    roles:
+      - badsectorlabs.ludus_bloodhound_ce
+    role_vars:
+      ludus_bloodhound_port: "80"
+      ludus_bloodhound_admin_password: "bloodhoundpassword123"
