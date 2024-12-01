@@ -1,0 +1,18 @@
+ludus:
+  - vm_name: "{{ range_id }}-vulhub"
+    hostname: "{{ range_id }}-vulhub"
+    template: debian-12-x64-server-template
+    vlan: 20
+    ip_last_octet: 80
+    ram_gb: 4
+    cpus: 2
+    linux: true
+    testing:
+      snapshot: false
+      block_internet: false
+    roles:
+      - badsectorlabs.ludus_vulhub
+    role_vars:
+      vulhub_envs:
+#        - confluence/CVE-2023-22527
+        - wordpress/pwnscriptum
