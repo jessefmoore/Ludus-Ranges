@@ -1,0 +1,22 @@
+ludus:
+  - vm_name: "{{ range_id }}-win11"
+    hostname: "{{ range_id }}-Forensics"
+    template: win11-22h2-x64-enterprise-template
+    vlan: 10
+    ip_last_octet: 11
+    ram_gb: 8
+    cpus: 4
+    windows:
+      sysprep: false
+      install_additional_tools: true     # Install firefox, chrome, VSCode, burp >
+      chocolatey_ignore_checksums: false # Set to true to ignore any checksum err>
+      chocolatey_packages:
+        - autopsy
+#        - ericzimmermantools
+#        - wireshark
+        - volatility3
+#        - timelineexplorer
+#        - aurora-ir
+    testing:
+      snapshot: true
+      block_internet: true
