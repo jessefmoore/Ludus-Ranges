@@ -1,0 +1,26 @@
+ludus:
+  - vm_name: "{{ range_id }}-xz-backdoor"
+    hostname: "{{ range_id }}-xz-backdoor"
+    template: debian-12-x64-server-template
+    vlan: 99
+    ip_last_octet: 1
+    ram_gb: 2
+    cpus: 2
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: true
+
+  - vm_name: "{{ range_id }}-REMnux"
+    hostname: "{{ range_id }}-REMnux"
+    template: ubuntu-20.04-x64-server-template
+    vlan: 99
+    ip_last_octet: 2
+    ram_gb: 4
+    cpus: 2
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: true
+    roles:
+      - badsectorlabs.ludus_remnux
