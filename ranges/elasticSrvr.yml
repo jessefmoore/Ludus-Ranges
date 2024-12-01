@@ -1,0 +1,16 @@
+ludus:
+  - vm_name: "{{ range_id }}-elastic"
+    hostname: "{{ range_id }}-elastic"
+    template: debian-12-x64-server-template
+    vlan: 10
+    ip_last_octet: 16
+    ram_gb: 8
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: false
+      block_internet: false
+    roles:
+      - badsectorlabs.ludus_elastic_container
+    role_vars:
+      ludus_elastic_password: "thisisapassword"
