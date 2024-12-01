@@ -1,0 +1,42 @@
+ludus:
+  - vm_name: "{{ range_id }}-wazuh"
+    hostname: "{{ range_id }}-wazuh"
+    template: ubuntu-22.04-x64-server-template
+    vlan: 20
+    ip_last_octet: 28
+    ram_gb: 16
+    cpus: 8
+    linux: true
+    testing:
+      snapshot: false
+      block_internet: true
+    roles:
+      - aleemladha.wazuh_server_install
+    role_vars:
+      wazuh_admin_password: Wazuh-123
+
+  - vm_name: "{{ range_id }}-ubuntu-2204"
+    hostname: "{{ range_id }}-ubuntu-2204"
+    template: ubuntu-22.04-x64-server-template
+    vlan: 20
+    ip_last_octet: 20
+    ram_gb: 4
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: false
+      block_internet: true
+    roles:
+      - aleemladha.ludus_wazuh_agent
+
+  - vm_name: "{{ range_id }}-win11-22h2-enterprise-x64-1"
+    hostname: "{{ range_id }}-WIN11-22H2-1"
+    template: win11-22h2-x64-enterprise-template
+    vlan: 20
+    ip_last_octet: 21
+    ram_gb: 16
+    cpus: 8
+    windows:
+      install_additional_tools: false
+    roles:
+      - aleemladha.ludus_wazuh_agent
