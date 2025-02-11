@@ -1,0 +1,72 @@
+ludus:
+  - vm_name: "{{ range_id }}-win10"
+    hostname: "{{ range_id }}-WIN10"
+    template: win10-21h2-x64-enterprise-template
+    vlan: 10
+    ip_last_octet: 21
+    ram_gb: 8
+    cpus: 4
+    windows:
+#      sysprep: false
+#      install_additional_tools: true     # Install firefox, chrome, VSCode, Process hacker2, MSFT NetMon, Burp, wireshark >
+      chocolatey_ignore_checksums: false # Set to true to ignore any checksum err>
+      chocolatey_packages:
+#        - mls-software-openssh # need to start it after this installs it manually
+#        - wireshark
+#        - volatility3
+#        - aurora-ir
+#    roles:
+#      - PrymalInstynct.ludus_atomic_red_team
+    testing:
+      snapshot: true
+      block_internet: true
+#
+# Router
+#Change firewall rules from here--> /opt/ludus/ansible/range-management/tasks/firewall/set-firewall-rules.yml
+  - vm_name: "{{ range_id }}-router-debian11-x64"
+    hostname: "{{ range_id }}-router"
+    template: debian-11-x64-server-template
+    vlan: 10
+    ip_last_octet: 254
+    ram_gb: 2
+    ram_min_gb: 1
+    cpus: 2
+#    roles: # Enterprise only
+#      - ludus_guacamole_server # You can add roles to the router VM just like any other VM
+#    role_vars: # Enterprise only
+#      somevar: value
+#    outbound_wireguard_config: |- # Enterprise only; Note: this config must have AllowedIPs set to 0.0.0.0/0, split tunnels are not supported (yet)
+#      [Interface]
+#      PrivateKey = XXXX
+#      ...
+#    outbound_wireguard_vlans: # Enterprise only; Define the VLANs that the router VM will route traffic for. This key is required if outbound_wireguard_config is defined.
+#      - 10
+#    inbound_wireguard: # Enterprise only; Must be used with users that have portforwarding enabled at creation time
+#      enabled: true # Enable or disable the WireGuard server on the router (default: false)
+#      server_cidr: 10.254.254.0/24 # The CIDR of the WireGuard server (default: 10.254.254.0/24)
+#      port: 51820 # The port the WireGuard server is listening on (UDP) (default: 51820). Note: This must be 51820 to work with port forwarding.
+#      allowed_vlans: # The VLANs that WireGuard clients are allowed to connect to (default: all)
+#        - 10
+
+# This key defines network rules in your range. It is optional, and by default all traffic is allowed
+# network: 
+#   inter_vlan_default: REJECT # The default rule to apply to traffic between VLANs. Default: ACCEPT
+#   external_default: ACCEPT   # The default rule to apply to traffic leaving the range out to the internet. Default: ACCEPT
+#   always_blocked_networks:   # Define any networks that ranges should never be able to reach (i.e. the LAN where the Ludus host is located)
+#     - 192.168.1.0/24         # entries must be in CIDR format
+#   rules: # Specify rules to restrict or allow based on inter_vlan_default. Default: allow all traffic
+#     - name: Only allow windows to kali on 443 # The rule name will be added as a comment in iptables
+#       vlan_src: 10   # Traffic source VLAN
+#       vlan_dst: 99   # Traffic destination VLAN. Special value 'public' can be used which is converted to '! 10.ID.0.0/16' in the iptables rule
+#       protocol: tcp  # Protocol (tcp|udp|icmp|all)
+#       ports: 443     # A single port, a range in the format start:end, or 'all'
+#       action: ACCEPT # ACCEPT|REJECT|DROP
+#     - name: Allow kali to the DC
+#       vlan_src: 99
+#       ip_last_octet_src: 1 # The single machine from the vlan_src to apply the rule to
+#       vlan_dst: 10
+#       ip_last_octet_dst: 11 # The single machine from the vlan_dst to apply the rule to
+#       protocol: all
+#       ports: all
+#       action: ACCEPT
+# #  
