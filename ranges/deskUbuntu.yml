@@ -1,0 +1,12 @@
+ludus:
+  - vm_name: "{{ range_id }}-DeskUbuntu24.04"
+    hostname: "{{ range_id }}-DeskUbuntu"
+    template: ubuntu-24.04-x64-desktop-template
+    vlan: 10
+    ip_last_octet: 90
+    ram_gb: 4
+    cpus: 2
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: true
