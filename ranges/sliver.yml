@@ -24,7 +24,7 @@
         metasploit: true
         port: 1884
 
-    - vm_name: "{{ range_id }}-KALI"
+  - vm_name: "{{ range_id }}-KALI"
     hostname: "{{ range_id }}-KALI"
     template: kali-custom-desktop-template
     vlan: 10
