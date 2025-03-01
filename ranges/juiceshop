@@ -1,0 +1,19 @@
+# from github Role https://github.com/xurger/ludus_juiceshop
+# git clone https://github.com/xurger/ludus_juiceshop
+# ludus ansible role add -d ./ludus_juiceshop
+# ludus range config set -f juiceshop.yml
+# ludus range deploy
+ludus:
+  - vm_name: "{{ range_id }}-juiceshop"
+    hostname: "{{ range_id }}-juiceshop"
+    template: debian-12-x64-server-template
+    vlan: 10
+    ip_last_octet: 91
+    ram_gb: 4
+    cpus: 2
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: true
+    roles:
+      - ludus_juiceshop
