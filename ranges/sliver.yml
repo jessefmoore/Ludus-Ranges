@@ -3,6 +3,10 @@
 # git clone https://github.com/dotknewt/ludus.git
 # cd /opt/dotknewt/ludus/role
 # ludus ansible role add -d ludus-install-sliver/ --user team5
+# nano sliver2.yml
+# ludus range config set -f sliver2.yml --user team5
+# ludus range deploy --user team5
+# ludus range logs -f --user team5
 # ludus range deploy -t user-defined-roles --only-roles ludus-install-sliver --user team5
 # 
   - vm_name: "{{ range_id }}-SLIVER"
