@@ -8,7 +8,8 @@
 # ludus range deploy --user team5
 # ludus range logs -f --user team5
 # ludus range deploy -t user-defined-roles --only-roles ludus-install-sliver --user team5
-# 
+#
+ludus:
   - vm_name: "{{ range_id }}-SLIVER"
     hostname: "{{ range_id }}-SLIVER"
     template: debian-latest-server-template
