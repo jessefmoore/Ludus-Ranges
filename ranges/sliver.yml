@@ -26,3 +26,4 @@ ludus:
     role_vars:
       ludus_install_sliver:
         client: true
+        server: true
