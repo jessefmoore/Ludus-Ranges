@@ -9,7 +9,7 @@
 # ludus range deploy --user team4
 # ludus range logs -f --user team4
 # ludus range deploy -t user-defined-roles --only-roles ludus-install-sliver --user team4
-#
+# to get Sliver server up and going type "sliver-server"
 ludus:
   - vm_name: "{{ range_id }}-SLIVER"
     hostname: "{{ range_id }}-SLIVER"
