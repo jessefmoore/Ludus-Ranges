@@ -69,6 +69,12 @@ network:
       protocol: tcp
       ports: 8080
       action: ACCEPT
+    - name: Only allow windows to kali on 8000
+      vlan_src: 20
+      vlan_dst: 50
+      protocol: tcp
+      ports: 8000
+      action: ACCEPT
     - name: Allow kali to all windows
       vlan_src: 20
       vlan_dst: 50
