@@ -1,0 +1,49 @@
+# Ansible role: https://galaxy.ansible.com/ui/standalone/roles/Beardhammer/ludus_rustdesk/
+ludus:
+  - vm_name: "Win11-24h2"
+    hostname: "Win11-24h2"
+    template: win11-22h2-x64-enterprise-template
+    vlan: 10
+    ip_last_octet: 11
+    ram_gb: 8
+    cpus: 4
+    windows:
+      sysprep: true
+    roles:
+      - name: ludus_rustdesk
+        depends_on:
+          - vm_name: "{{ range_id }}-rustdesk"
+            role: ludus_rustdesk
+    role_vars:
+      rustdesk_client: true
+  - vm_name: "{{ range_id }}-rustdesk"
+    hostname: "{{ range_id }}-rustdesk"
+    template: debian-12-x64-server-template
+    vlan: 10
+    ip_last_octet: 12
+    ram_gb: 8
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: false
+      block_internet: false
+    roles:
+      - ludus_rustdesk
+    role_vars:
+      rustdesk_server: true
+  - vm_name: "Win11-24h2-2"
+    hostname: "Win11-24h2-2"
+    template: win11-22h2-x64-enterprise-template
+    vlan: 10
+    ip_last_octet: 14
+    ram_gb: 4
+    cpus: 4
+    windows:
+      sysprep: true
+    roles:
+      - name: ludus_rustdesk
+        depends_on:
+          - vm_name: "{{ range_id }}-rustdesk"
+            role: ludus_rustdesk
+    role_vars:
+      rustdesk_client: true
