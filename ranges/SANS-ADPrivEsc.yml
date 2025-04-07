@@ -1,3 +1,4 @@
+# https://docs.ludus.cloud/docs/environment-guides/sans-workshop-active-directory-privilege-escalation-with-empire
 ludus:
   - vm_name: "{{ range_id }}-dcpwnzone"
     hostname: "{{ range_id }}-dcpwnzone"
