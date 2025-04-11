@@ -44,7 +44,6 @@ ludus:
     windows:
       install_additional_tools: true
     roles:                  # This key is an array of user-defined roles that will be installed on this VM. Roles must exist on the Ludus server a>
-      - geerlingguy.docker  # Arbitrary role name, as it appears in `ludus ansible roles list`
       - name: badsectorlabs.ludus_elastic_agent # You can also specify a role with a an array of dependencies that have to run first
         depends_on:
           - vm_name: "{{ range_id }}-elastic"  # In this case, we have to set up the elastic container (server) before the agent
