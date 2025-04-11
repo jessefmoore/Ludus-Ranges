@@ -42,7 +42,7 @@ ludus:
     ram_gb: 8
     cpus: 4
     windows:
-      install_additional_tools: false
+      install_additional_tools: true
     roles:                  # This key is an array of user-defined roles that will be installed on this VM. Roles must exist on the Ludus server a>
       - geerlingguy.docker  # Arbitrary role name, as it appears in `ludus ansible roles list`
       - name: badsectorlabs.ludus_elastic_agent # You can also specify a role with a an array of dependencies that have to run first
