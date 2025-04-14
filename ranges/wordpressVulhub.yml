@@ -11,6 +11,7 @@ ludus:
       snapshot: false
       block_internet: false
     roles:
+      - geerlingguy.docker
       - badsectorlabs.ludus_vulhub
     role_vars:
       vulhub_envs:
