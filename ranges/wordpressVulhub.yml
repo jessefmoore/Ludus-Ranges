@@ -1,3 +1,6 @@
+# Requirements: 
+# ansible-galaxy install geerlingguy.docker
+# ludus ansible role add badsectorlabs.ludus_vulhub
 ludus:
   - vm_name: "{{ range_id }}-vulhub"
     hostname: "{{ range_id }}-vulhub"
