@@ -15,6 +15,7 @@ ludus:
 #        - wireshark
 #        - volatility3
 #        - aurora-ir
+         - makemeadmin
 #    roles:
 #      - PrymalInstynct.ludus_atomic_red_team
     testing:
