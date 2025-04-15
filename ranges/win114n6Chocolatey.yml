@@ -12,10 +12,11 @@ ludus:
       chocolatey_ignore_checksums: false # Set to true to ignore any checksum err>
       chocolatey_packages:
         - autopsy
-#        - ericzimmermantools
-#        - wireshark
+        - ericzimmermantools
+        - wireshark
         - volatility3
-#        - timelineexplorer
+        - makemeadmin
+        - timelineexplorer
 #        - aurora-ir
     testing:
       snapshot: true
