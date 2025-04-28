@@ -1,0 +1,20 @@
+ludus:
+  - vm_name: "{{ range_id }}-Ubuntu22"
+    hostname: "Ubuntu22"
+    template: ubuntu-22.04-x64-server-template
+    vlan: 10
+    ip_last_octet: 20
+    ram_gb: 2
+    cpus: 1
+    linux: true
+    linux:
+      packages: # You can define packages to install on Linux hosts
+        - curl
+        - python3
+        - git
+        - docker.io
+        - tcpdump
+        - net-tools
+    testing:
+      snapshot: true
+      block_internet: true
