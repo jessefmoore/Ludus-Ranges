@@ -13,6 +13,10 @@
 # ludus range deploy -t user-defined-roles --user GOADd467a7
 # ludus range logs -f --user GOADd467a7
 # ludus range status --user GOADd467a7
+# Just incase you need to rerun a vm
+# ludus range deploy -l localhost,GOADd467a7-ar-splunk --user GOADd467a7
+# Just incase you want to run just the ansible role
+# ludus range deploy -t user-defined-roles --user GOADd467a7
 ludus:
   - vm_name: "{{ range_id }}-GOAD-DC01"
     hostname: "{{ range_id }}-DC01"
