@@ -97,7 +97,7 @@ ludus:
     roles:
       - p4t12ick.ludus_ar_windows
     role_vars:
-      ludus_ar_windows_splunk_ip: "10.21.20.25"
+      ludus_ar_windows_splunk_ip: "10.21.20.24"
 
   - vm_name: "{{ range_id }}-ar-linux"
     hostname: "{{ range_id }}-ar-linux"
@@ -110,7 +110,7 @@ ludus:
     roles:
       - p4t12ick.ludus_ar_linux
     role_vars:
-      ludus_ar_linux_splunk_ip: "10.21.20.25"
+      ludus_ar_linux_splunk_ip: "10.21.20.24"
 network:
   inter_vlan_default: REJECT
   always_blocked_networks:
