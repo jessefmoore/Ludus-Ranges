@@ -16,6 +16,8 @@
 # ludus range deploy -l localhost,GOADd467a7-ar-splunk --user GOADd467a7
 # Just incase you want to run just the ansible role
 # ludus range deploy -t user-defined-roles --user GOADd467a7
+# The default username and password are admin:changeme123!
+# http://10.2.20.1:8000
 ludus:
   - vm_name: "{{ range_id }}-GOAD-DC01"
     hostname: "{{ range_id }}-DC01"
