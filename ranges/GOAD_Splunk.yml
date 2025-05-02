@@ -10,7 +10,6 @@
 # ludus range deploy --user GOADd467a7
 # Add to GOAD boxes you want splunk on and then set config and deploy with tag
 # ludus range config set -f spGOAD.yml --user GOADd467a7
-# ludus range deploy -t user-defined-roles --user GOADd467a7
 # ludus range logs -f --user GOADd467a7
 # ludus range status --user GOADd467a7
 # Just incase you need to rerun a vm
