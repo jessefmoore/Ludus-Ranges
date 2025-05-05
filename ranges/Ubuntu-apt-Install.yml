@@ -12,7 +12,6 @@ ludus:
         - curl
         - python3
         - git
-        - docker.io
         - tcpdump
         - net-tools
     testing:
