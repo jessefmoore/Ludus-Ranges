@@ -1,4 +1,5 @@
 # Ansible role: https://galaxy.ansible.com/ui/standalone/roles/Beardhammer/ludus_rustdesk/
+# ludus ansible role add Beardhammer.ludus_rustdesk --user JM
 ludus:
   - vm_name: "Win11-24h2"
     hostname: "Win11-24h2"
