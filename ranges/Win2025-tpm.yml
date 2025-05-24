@@ -6,9 +6,9 @@
 # ludus range deploy -t user-defined-roles --user RTA2 --limit RTA2-win2025-AD
 # ludus range logs -f --user RTA2
 ludus:
-  - vm_name: "{{ range_id }}-win2025-AD"
-    hostname: "{{ range_id }}-DC01-2025"
-    template: win2025-server-x64-tpm-template
+  - vm_name: "{{ range_id }}-win2022-AD"
+    hostname: "{{ range_id }}-DC01-2022"
+    template: win2022-server-x64-template
     vlan: 10
     ip_last_octet: 22
     ram_gb: 8
