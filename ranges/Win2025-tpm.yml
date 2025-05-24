@@ -43,10 +43,10 @@ ludus:
             path: "DC=ludus,DC=domain"
             description: IT Department
         users:
-          - name: jdoe
-            firstname: John
-            surname: Doe
-            display_name: John Doe
+          - name: jmoore
+            firstname: Jesse
+            surname: Moore
+            display_name: Jesse Moore
             password: GFVfPS432QkKN2YdQwJL
             path: "DC=ludus,DC=domain"
             description: IT System Administrator
