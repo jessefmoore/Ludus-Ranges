@@ -28,7 +28,7 @@ ludus:
       acl_definitions:
         grant_generic_all_from_cptrex_to_bounty_group:
           for: "cptrex"
-          to: "CN=Bounty Hunters,OU=Bounty Hunters,DC=maldev,DC=local"
+          to: "CN=Bounty Hunters,OU=Bounty Hunters,DC=ludus,DC=domain"
           right: "GenericAll"
           inheritance: "None"
       ludus_ad_vulns_unconstrained_delegation_machine: true
