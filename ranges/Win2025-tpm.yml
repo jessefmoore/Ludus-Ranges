@@ -1,0 +1,98 @@
+ludus:
+  - vm_name: "{{ range_id }}-win2025-AD"
+    hostname: "{{ range_id }}-DC01-2025"
+    template: win2025-server-x64-tpm-template
+    vlan: 10
+    ip_last_octet: 22
+    ram_gb: 8
+    cpus: 4
+    windows:
+      sysprep: false
+    domain:
+      fqdn: ludus.domain
+      role: primary-dc
+    roles:
+      - ludus-ad-vulns
+    role_vars:
+      ludus_ad_vulns_openshares: true
+      ludus_ad_vulns_kerberoasting: true
+      kerberoasting_users:
+      - identity: fives
+        service_principal_name: HTTP/ArcTraining
+
+      ludus_ad_vulns_unconstrained_delegation_user: true
+      unconstrained_delegation_user:
+      - identity: jesse
+
+      ludus_ad_vulns_set_acl: true
+      acl_definitions:
+        grant_generic_all_from_cptrex_to_bounty_group:
+          for: "cptrex"
+          to: "CN=Bounty Hunters,OU=Bounty Hunters,DC=maldev,DC=local"
+          right: "GenericAll"
+          inheritance: "None"
+      ludus_ad_vulns_unconstrained_delegation_machine: true
+      unconstrained_delegation_machine:
+      - machine_name: WIN2025
+
+  - vm_name: "{{ range_id }}-win2025"
+    hostname: "{{ range_id }}-WIN2025"
+    template: win2025-server-x64-tpm-template
+    vlan: 10
+    ip_last_octet: 23
+    ram_gb: 8
+    cpus: 4
+    windows:
+      sysprep: true
+      install_additional_tools: true
+      office_version: 2019
+      office_arch: 64bit
+    domain:
+      fqdn: ludus.domain
+      role: member
+  - vm_name: "{{ range_id }}-kali"
+    hostname: "{{ range_id }}-kali"
+    template: kali-x64-desktop-template
+    vlan: 99
+    ip_last_octet: 1
+    ram_gb: 8
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: false
+      block_internet: false
+
+network:
+  inter_vlan_default: REJECT
+  rules:
+    - name: Only allow windows to kali on 443
+      vlan_src: 10
+      vlan_dst: 99
+      protocol: tcp
+      ports: 443
+      action: ACCEPT
+    - name: Only allow windows to kali on 80
+      vlan_src: 10
+      vlan_dst: 99
+      protocol: tcp
+      ports: 80
+      action: ACCEPT
+    - name: Only allow windows to kali on 8080
+      vlan_src: 10
+      vlan_dst: 99
+      protocol: tcp
+      ports: 8080
+      action: ACCEPT
+    - name: Allow kali to all windows
+      vlan_src: 99
+      vlan_dst: 10
+      protocol: all
+      ports: all
+      action: ACCEPT
+# This key defines network rules in your range. It is optional, and by default all traffic is allowed
+network:
+  inter_vlan_default: ACCEPT     # The default rule to apply to traffic between VLANs. Default: ACCEPT
+  external_default: ACCEPT       # The default rule to apply to traffic leaving the range out to the internet. Default: ACCEPT
+  wireguard_vlan_default: ACCEPT # The default rule to apply to traffic leaving the range to clients connected via WireGuard. Default: ACCEPT
+  always_blocked_networks:       # Define any networks that ranges should never be able to reach (i.e. the LAN where the Ludus host is located)
+    - 192.168.0.0/24             # entries must be in CIDR format
