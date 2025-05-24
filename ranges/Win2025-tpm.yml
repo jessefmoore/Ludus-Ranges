@@ -1,3 +1,8 @@
+# cd /opt
+# git clone https://github.com/Cyblex-Consulting/ludus-ad-content.git
+# ludus ansible role add -d /opt/ludus-ad-content/ --user RTA2
+# ludus range config set -f Win2025-tpm.yml --user RTA2
+# ludus range deploy --user RTA2
 ludus:
   - vm_name: "{{ range_id }}-win2025-AD"
     hostname: "{{ range_id }}-DC01-2025"
