@@ -12,44 +12,40 @@ ludus:
       fqdn: ludus.domain
       role: primary-dc
     roles:
-      - ludus-ad-vulns
+      - ludus-ad-content
     role_vars:
-      ludus_ad_vulns_openshares: true
-      ludus_ad_vulns_kerberoasting: true
-      kerberoasting_users:
-      - identity: fives
-        service_principal_name: HTTP/ArcTraining
-
-      ludus_ad_vulns_unconstrained_delegation_user: true
-      unconstrained_delegation_user:
-      - identity: jesse
-
-      ludus_ad_vulns_set_acl: true
-      acl_definitions:
-        grant_generic_all_from_cptrex_to_bounty_group:
-          for: "cptrex"
-          to: "CN=Bounty Hunters,OU=Bounty Hunters,DC=ludus,DC=domain"
-          right: "GenericAll"
-          inheritance: "None"
-      ludus_ad_vulns_unconstrained_delegation_machine: true
-      unconstrained_delegation_machine:
-      - machine_name: WIN2025
-
-  - vm_name: "{{ range_id }}-win2025"
-    hostname: "{{ range_id }}-WIN2025"
-    template: win2025-server-x64-tpm-template
-    vlan: 10
-    ip_last_octet: 23
-    ram_gb: 8
-    cpus: 4
-    windows:
-      sysprep: true
-      install_additional_tools: true
-      office_version: 2019
-      office_arch: 64bit
-    domain:
-      fqdn: ludus.domain
-      role: member
+      ludus_ad:
+        ous:
+          - name: France
+            path: DC=ludus,DC=domain
+            description: French subsidiary
+          - name: Germany
+            path: DC=ludus,DC=domain
+            description: German subsidiary
+        groups:
+          - name: Sales France
+            scope: global
+            path: "OU=France,DC=ludus,DC=domain"
+            description: France Sales Department
+          - name: Sales Germany
+            scope: global
+            path: "OU=Germany,DC=ludus,DC=domain"
+            description: Germany Sales Department
+          - name: IT
+            scope: global
+            path: "DC=ludus,DC=domain"
+            description: IT Department
+        users:
+          - name: jdoe
+            firstname: John
+            surname: Doe
+            display_name: John Doe
+            password: GFVfPS432QkKN2YdQwJL
+            path: "DC=ludus,DC=domain"
+            description: IT System Administrator
+            groups:
+              - Domain Users
+              - IT
   - vm_name: "{{ range_id }}-kali"
     hostname: "{{ range_id }}-kali"
     template: kali-x64-desktop-template
