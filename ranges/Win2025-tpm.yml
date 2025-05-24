@@ -69,7 +69,7 @@ ludus:
     hostname: "{{ range_id }}-kali"
     template: kali-x64-desktop-template
     vlan: 99
-    ip_last_octet: 1
+    ip_last_octet: 13
     ram_gb: 8
     cpus: 4
     linux: true
