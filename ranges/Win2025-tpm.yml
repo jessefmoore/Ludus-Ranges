@@ -53,6 +53,18 @@ ludus:
             groups:
               - Domain Users
               - IT
+  - vm_name: "{{ range_id }}-win2025-srvr"
+    hostname: "{{ range_id }}-svr-01-2025"
+    template: win2025-server-x64-tpm-template
+    vlan: 10
+    ip_last_octet: 23
+    ram_gb: 8
+    cpus: 4
+    windows:
+      sysprep: true
+    domain:
+      fqdn: ludus.domain
+      role: member
   - vm_name: "{{ range_id }}-kali"
     hostname: "{{ range_id }}-kali"
     template: kali-x64-desktop-template
