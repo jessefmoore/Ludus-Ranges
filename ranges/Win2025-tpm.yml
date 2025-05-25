@@ -22,6 +22,7 @@ ludus:
     roles:
       - ludus-ad-content
     role_vars:
+      ad_forest_functional_level: WinThreshold
       ludus_ad:
         ous:
           - name: France
