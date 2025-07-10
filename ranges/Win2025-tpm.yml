@@ -6,6 +6,14 @@
 # ludus range deploy --user RTA2
 # ludus range deploy -t user-defined-roles --user RTA2 --limit RTA2-win2025-AD
 # ludus range logs -f --user RTA2
+#
+# If you see GPO update fail then time is off, fix with below on the machine that is not the domain controller.
+# w32tm /config /manualpeerlist:"RTA2-DC01-2022.ludus.domain" /syncfromflags:manual /reliable:no /update
+#net stop w32time
+#net start w32time
+#w32tm /resync /force
+#
+#
 ludus:
   - vm_name: "{{ range_id }}-win2022-AD"
     hostname: "{{ range_id }}-DC01-2022"
