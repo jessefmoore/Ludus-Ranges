@@ -14,7 +14,7 @@
 #w32tm /resync /force
 #
 # Check time status
-@ w32tm /query /status
+# w32tm /query /status
 ludus:
   - vm_name: "{{ range_id }}-win2022-AD"
     hostname: "{{ range_id }}-DC01-2022"
