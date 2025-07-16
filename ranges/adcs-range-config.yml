@@ -11,8 +11,8 @@ ludus:
     domain:
       fqdn: ludus.domain
       role: primary-dc
-    roles:
-      - badsectorlabs.ludus_adcs
+#    roles:
+#      - badsectorlabs.ludus_adcs
   - vm_name: "{{ range_id }}-ad-win11-22h2-enterprise-x64-1"
     hostname: "{{ range_id }}-WIN11-22H2-1"
     template: win11-22h2-x64-enterprise-template
