@@ -1,0 +1,15 @@
+ludus:
+  - vm_name: "{{ range_id }}-atomicRT-win2022"
+    hostname: "{{ range_id }}-ART-2022"
+    template: win2022-server-x64-template
+    vlan: 10
+    ip_last_octet: 23
+    ram_gb: 4
+    cpus: 2
+    windows:
+#      sysprep: true
+#    domain:
+#      fqdn: ludus.domain
+#      role: primary-dc
+    roles:
+      - PrymalInstynct.ludus_atomic_red_team
