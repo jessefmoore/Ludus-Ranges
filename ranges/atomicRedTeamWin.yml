@@ -1,0 +1,15 @@
+ludus:
+  - vm_name: "{{ range_id }}-WIN11-ART"
+    hostname: "{{ range_id }}-Win11-ART"
+    template: win11-22h2-x64-enterprise-template
+    vlan: 10
+    ip_last_octet: 11
+    ram_gb: 6
+    cpus: 4
+    windows:
+      sysprep: true
+#    domain:
+#      fqdn: ludus.domain
+#      role: member
+    roles:
+      - PrymalInstynct.ludus_atomic_red_team
