@@ -1,3 +1,16 @@
+#  If ansible roles didn't deploy then do this
+# ludus range deploy -t user-defined-roles
+#
+# Then if you can't rdp or ssh then do this
+#  ludus --user RTA3 range deploy -t network
+#
+# Enjoy the Access to your Elastic server https://<YOURIP>:5601
+# The creds are elastic:elasticpassword
+# Share range
+# ludus range access grant -s JM -t RTA3
+#
+# rerun wiregaurd
+# ludus user wireguard --user JM
 ludus:
   - vm_name: "{{ range_id }}-elastic"
     hostname: "{{ range_id }}-elastic"
