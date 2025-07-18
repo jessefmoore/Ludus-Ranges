@@ -1,3 +1,5 @@
+# add the role
+# ludus ansible role add PrymalInstynct.ludus_atomic_red_team --user RTA4
 ludus:
   - vm_name: "{{ range_id }}-win11-22h2-enterprise-x64-1"
     hostname: "{{ range_id }}-WIN11-22H2-1"
