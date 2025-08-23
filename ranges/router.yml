@@ -1,0 +1,11 @@
+ludus:
+# Router
+#Change firewall rules from here--> /opt/ludus/ansible/range-management/tasks/firewall/set-firewall-rules.yml
+  - vm_name: "{{ range_id }}-router-debian11-x64"
+    hostname: "{{ range_id }}-router"
+    template: debian-11-x64-server-template
+    vlan: 10
+    ip_last_octet: 254
+    ram_gb: 2
+    ram_min_gb: 1
+    cpus: 2
