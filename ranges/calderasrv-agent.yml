@@ -1,3 +1,12 @@
+# Add the role via Ludus
+# ludus ansible role add frack113.ludus_caldera_agent --user JM
+#
+# ludus range config set -f agentCladera.yml --user JM
+# ludus range deploy --user JM
+#
+# To run just ansible roles after running the initial deploy
+# ludus range deploy -t user-defined-roles --limit JM-win11-caldera
+#
 ludus:
   - vm_name: "{{ range_id }}-Caldera"
     hostname: "{{ range_id }}-Caldera"
