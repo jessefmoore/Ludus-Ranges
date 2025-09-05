@@ -1,0 +1,24 @@
+ludus:
+  - vm_name: "{{ range_id }}-Caldera"
+    hostname: "{{ range_id }}-Caldera"
+    template: debian-12-x64-server-template
+    vlan: 20
+    ip_last_octet: 26
+    ram_gb: 4
+    cpus: 2
+    linux: true
+    roles:
+      - frack113.ludus_caldera_server
+    role_vars:
+      ludus_caldera_admin_pwd: 'SuperPassword'
+  - vm_name: "{{ range_id }}-win11-caldera"
+    hostname: "{{ range_id }}-WIN11"
+    template: win11-22h2-x64-enterprise-template
+    vlan: 10
+    ip_last_octet: 11
+    ram_gb: 8
+    cpus: 4
+    windows:
+      install_additional_tools: false
+    roles:
+      - name: frack113.ludus_caldera_agent
