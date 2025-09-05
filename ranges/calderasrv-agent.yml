@@ -1,5 +1,6 @@
-# Add the role via Ludus
+# Add the roles via Ludus
 # ludus ansible role add frack113.ludus_caldera_agent --user JM
+# ludus ansible role add frack113.ludus_caldera_server --user JM
 #
 # ludus range config set -f agentCladera.yml --user JM
 # ludus range deploy --user JM
