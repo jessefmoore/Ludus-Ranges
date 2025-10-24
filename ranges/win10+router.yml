@@ -23,3 +23,5 @@ ludus:
     ram_min_gb: 1
     cpus: 2
     linux: {}  # This was missing!
+    iptables_commands: # These commands are run after the firewall is configured. Make sure you understand what these commands do as they could allow traffic that should otherwise be blocked by Ludus features!
+    - iptables -I LUDUS_DEFAULTS -i ens18 -s 192.0.2.102 -j ACCEPT # A full iptables command to run at the end of router setup
