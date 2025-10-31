@@ -1,3 +1,5 @@
+# ludus ansible roles add aleemladha.wazuh_server_install
+# ludus ansible roles add aleemladha.ludus_wazuh_agent
 ludus:
   - vm_name: "{{ range_id }}-wazuh"
     hostname: "{{ range_id }}-wazuh"
