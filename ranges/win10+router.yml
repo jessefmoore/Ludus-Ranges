@@ -3,9 +3,9 @@ ludus:
     hostname: "{{ range_id }}-WIN11"
     template: win11-22h2-x64-enterprise-template
     vlan: 10
-    ip_last_octet: 21
-    ram_gb: 8
-    cpus: 4
+    ip_last_octet: 11
+    ram_gb: 4
+    cpus: 2
     windows:
       chocolatey_ignore_checksums: false
       chocolatey_packages:
