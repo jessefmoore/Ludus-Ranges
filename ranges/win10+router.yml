@@ -14,14 +14,12 @@ ludus:
       snapshot: true
       block_internet: true
 
-  - vm_name: "{{ range_id }}-router-debian11-x64"
-    hostname: "{{ range_id }}-router"
-    template: debian-11-x64-server-template
-    vlan: 10
-    ip_last_octet: 254
-    ram_gb: 2
-    ram_min_gb: 1
-    cpus: 2
-    linux: {}  # This was missing!
-    #iptables_commands: # These commands are run after the firewall is configured. Make sure you understand what these commands do as they could allow traffic that should otherwise be blocked by Ludus features!
-    #- iptables -I LUDUS_DEFAULTS -i ens18 -s 192.0.2.102 -j ACCEPT # A full iptables command to run at the end of router setup
+router:
+  vm_name: "{{ range_id }}-router-debian11-x64"
+  hostname: "{{ range_id }}-router"
+  template: debian-11-x64-server-template
+  ram_gb: 2
+  ram_min_gb: 1
+  cpus: 2
+  iptables_commands: # These commands are run after the firewall is configured. Make sure you understand what these commands do as they could allow traffic that should otherwise be blocked by Ludus features!
+    - iptables -I LUDUS_DEFAULTS -i ens18 -s 192.0.2.102 -j ACCEPT # A full iptables command to run at the end of router setup
