@@ -1,3 +1,8 @@
+# ludus --user GOADafbca8 ansible collection add scicore.guacamole
+# ludus range config set -f guac-ad.yml --user GOADafbca8
+# ludus range deploy --user GOADafbca8
+# ludus range status --user GOADafbca8
+# ludus range errors --user GOADafbca8
 ludus:
   - vm_name: "{{ range_id }}-NULL-DC"
     hostname: "{{ range_id }}-DC"
