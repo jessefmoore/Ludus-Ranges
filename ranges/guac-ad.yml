@@ -44,7 +44,7 @@ ludus:
           password: password
           port: 3389
         - name: "win10-guac"
-          hostname: "{{ range_id }}-NULL-WIN10"
+          hostname: "{{ range_id }}-WIN10"
           protocol: rdp
           username: localuser
           password: password
