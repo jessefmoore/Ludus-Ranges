@@ -3,6 +3,7 @@
 # ludus range deploy --user GOADafbca8
 # ludus range status --user GOADafbca8
 # ludus range errors --user GOADafbca8
+# "msg": "Access Guacamole at http://10.33.10.50:8080 using guacadmin:guacadmin"
 ludus:
   - vm_name: "{{ range_id }}-NULL-DC"
     hostname: "{{ range_id }}-DC"
