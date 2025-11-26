@@ -36,7 +36,7 @@ ludus:
       - brmkit.ludus_guacamole
     role_vars:
       guacamole_connections:
-        - name: "{{ range_id }}-NULL-DC-guac"
+        - name: "{{ range_id }}-NULL-DC"
           protocol: rdp
           domain: "NULL"
           username: domainadmin
