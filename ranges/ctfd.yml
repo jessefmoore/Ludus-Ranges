@@ -1,0 +1,16 @@
+# ludus ansible role add PrymalInstynct.ludus_ctfd
+# ludus range config set -f ctfd.yml --user JM
+# ludus range deploy --user JM
+#
+ludus:
+  - vm_name: "{{ range_id }}-ctfd"
+    hostname: "{{ range_id }}-ctfd"
+    template: debian-12-x64-server-template
+    vlan: 10
+    ip_last_octet: 100
+    ram_gb: 4
+    cpus: 2
+    linux: true
+    roles:
+      - geerlingguy.docker
+      - PrymalInstynct.ludus_ctfd
