@@ -1,0 +1,201 @@
+# Add roles
+# ludus ansible role add badsectorlabs.ludus_vulhub
+# ludus ansible role add aleemladha.wazuh_server_install
+# ludus ansible role add aleemladha.ludus_wazuh_agent
+# ludus ansible role add geerlingguy.docker
+# ludus ansible role add badsectorlabs.ludus_adcs
+# ludus ansible role add 
+# ludus ansible role add
+# ludus ansible role add
+#
+ludus:
+  - vm_name: "{{ range_id }}-ad-dc"
+    hostname: "{{ range_id }}-DC01"
+    template: win2022-server-x64-template
+    vlan: 10
+    ip_last_octet: 22
+    ram_gb: 8
+    cpus: 4
+    windows:
+      sysprep: false
+    domain:
+      fqdn: pokepals.domain
+      role: primary-dc
+    roles:
+      - badsectorlabs.ludus_adcs
+  - vm_name: "{{ range_id }}-win11-pokepals"
+    hostname: "{{ range_id }}-WIN-pals"
+    template: win11-22h2-x64-enterprise-template
+    vlan: 10
+    ip_last_octet: 11
+    ram_gb: 8
+    cpus: 2
+    windows:
+      install_additional_tools: true
+      office_version: 2019
+      office_arch: 64bit
+    domain:
+      fqdn: pokepals.domain
+      role: member
+  - vm_name: "{{ range_id }}-wazuhsrvr"
+    hostname: "{{ range_id }}-wazuh"
+    template: ubuntu-22.04-x64-server-template
+    vlan: 10
+    ip_last_octet: 28
+    ram_gb: 16
+    cpus: 8
+    linux: true
+    testing:
+      snapshot: false
+      block_internet: true
+    roles:
+      - aleemladha.wazuh_server_install
+    role_vars:
+      wazuh_admin_password: Wazuh-123
+  - vm_name: "{{ range_id }}-ubun"
+    hostname: "{{ range_id }}-ubuntu-2204"
+    template: ubuntu-22.04-x64-server-template
+    vlan: 10
+    ip_last_octet: 29
+    ram_gb: 1
+    cpus: 1
+    linux: true
+    testing:
+      snapshot: false
+      block_internet: true
+    roles:
+      - aleemladha.ludus_wazuh_agent
+  - vm_name: "{{ range_id }}-win11"
+    hostname: "{{ range_id }}-WIN11"
+    template: win11-22h2-x64-enterprise-template
+    vlan: 10
+    ip_last_octet: 30
+    ram_gb: 4
+    cpus: 2
+    windows:
+      install_additional_tools: false
+    roles:
+      - aleemladha.ludus_wazuh_agent
+
+  - vm_name: "{{ range_id }}-wiki-pokepals"
+    hostname: "{{ range_id }}-wiki-pokepals"
+    template: debian-12-x64-server-template
+    vlan: 10
+    ip_last_octet: 80
+    ram_gb: 8
+    cpus: 2
+    linux: true
+    testing:
+      snapshot: false
+      block_internet: false
+    roles:
+      - badsectorlabs.ludus_vulhub
+    role_vars:
+      vulhub_envs:
+        - confluence/CVE-2023-22527
+    domain:
+      fqdn: pokepals.domain
+      role: member
+  - vm_name: "{{ range_id }}-wp-pokepals"
+    hostname: "{{ range_id }}-wp-pokepals"
+    template: debian-12-x64-server-template
+    vlan: 10
+    ip_last_octet: 81
+    ram_gb: 4
+    cpus: 1
+    linux: true
+    testing:
+      snapshot: false
+      block_internet: false
+    roles:
+      - badsectorlabs.ludus_vulhub
+    role_vars:
+      vulhub_envs:
+        - wordpress/pwnscriptum
+    domain:
+      fqdn: pokepals.domain
+      role: member
+  - vm_name: "{{ range_id }}-db-pokepals"
+    hostname: "{{ range_id }}-db-pokepals"
+    template: ubuntu-22.04-x64-server-template
+    vlan: 10
+    ip_last_octet: 82
+    ram_gb: 4
+    cpus: 1
+    linux: true
+    testing:
+      snapshot: false
+      block_internet: false
+  - vm_name: "{{ range_id }}-scoreEngine"
+    hostname: "{{ range_id }}-SE"
+    template: debian-12-x64-server-template
+    vlan: 10
+    ip_last_octet: 95
+    ram_gb: 4
+    cpus: 2
+    linux: true
+    roles:
+      - geerlingguy.docker
+    testing:
+      snapshot: false
+      block_internet: false
+  - vm_name: "{{ range_id }}-UnixMail-pokepals"
+    hostname: "{{ range_id }}-linuxMail"
+    template: debian-12-x64-server-template
+    vlan: 10
+    ip_last_octet: 25
+    ram_gb: 4
+    cpus: 2
+    linux: true
+    roles:
+      - geerlingguy.docker
+    testing:
+      snapshot: false
+      block_internet: false
+  - vm_name: "{{ range_id }}-guac"
+    hostname: "{{ range_id }}-GuacBox"
+    template: ubuntu-22.04-x64-server-template
+    vlan: 10
+    ip_last_octet: 12
+    ram_gb: 8
+    cpus: 2
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: true
+    roles:                  # This key is an array of user-defined roles th>
+      - geerlingguy.docker
+
+network:
+  inter_vlan_default: REJECT
+  rules:
+    - name: Only allow windows to kali on 443
+      vlan_src: 10
+      vlan_dst: 99
+      protocol: tcp
+      ports: 443
+      action: ACCEPT
+    - name: Only allow windows to kali on 80
+      vlan_src: 10
+      vlan_dst: 99
+      protocol: tcp
+      ports: 80
+      action: ACCEPT
+    - name: Only allow windows to kali on 8080
+      vlan_src: 10
+      vlan_dst: 99
+      protocol: tcp
+      ports: 8080
+      action: ACCEPT
+    - name: Allow kali to all windows
+      vlan_src: 99
+      vlan_dst: 10
+      protocol: all
+      ports: all
+      action: ACCEPT
+    - name: Allow ScoreEngine to all windows
+      vlan_src: 10
+      vlan_dst: 10
+      protocol: all
+      ports: all
+      action: ACCEPT
