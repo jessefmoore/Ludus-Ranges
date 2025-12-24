@@ -1,4 +1,4 @@
-# ludus ansible role add PrymalInstynct.ludus_ctfd
+# ludus ansible role add PrymalInstynct.ludus_ctfd --user JM
 # ludus range config set -f ctfd.yml --user JM
 # ludus range deploy --user JM
 #
