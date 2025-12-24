@@ -1,0 +1,148 @@
+# ludus range config set -f kali-basic.yml
+# ludus range deploy
+# ludus range logs -f
+ludus:
+# 12/24/2025 jesse 
+  - vm_name: "{{ range_id }}-kali-1"
+    hostname: "{{ range_id }}-kali1"
+    template: kali-x64-desktop-template
+    vlan: 99
+    ip_last_octet: 101
+    ram_gb: 8
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: false
+  - vm_name: "{{ range_id }}-kali-2"
+    hostname: "{{ range_id }}-kali2"
+    template: kali-x64-desktop-template
+    vlan: 99
+    ip_last_octet: 102
+    ram_gb: 8
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: false
+  - vm_name: "{{ range_id }}-kali-3"
+    hostname: "{{ range_id }}-kali3"
+    template: kali-x64-desktop-template
+    vlan: 99
+    ip_last_octet: 103
+    ram_gb: 8
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: false
+  - vm_name: "{{ range_id }}-kali-4"
+    hostname: "{{ range_id }}-kali4"
+    template: kali-x64-desktop-template
+    vlan: 99
+    ip_last_octet: 104
+    ram_gb: 8
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: false
+  - vm_name: "{{ range_id }}-kali-5"
+    hostname: "{{ range_id }}-kali5"
+    template: kali-x64-desktop-template
+    vlan: 99
+    ip_last_octet: 105
+    ram_gb: 8
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: false
+  - vm_name: "{{ range_id }}-kali-6"
+    hostname: "{{ range_id }}-kali6"
+    template: kali-x64-desktop-template
+    vlan: 99
+    ip_last_octet: 106
+    ram_gb: 8
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: false
+  - vm_name: "{{ range_id }}-kali-7"
+    hostname: "{{ range_id }}-kali7"
+    template: kali-x64-desktop-template
+    vlan: 99
+    ip_last_octet: 107
+    ram_gb: 8
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: false
+  - vm_name: "{{ range_id }}-kali-8"
+    hostname: "{{ range_id }}-kali8"
+    template: kali-x64-desktop-template
+    vlan: 99
+    ip_last_octet: 108
+    ram_gb: 8
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: false
+  - vm_name: "{{ range_id }}-kali-9"
+    hostname: "{{ range_id }}-kali9"
+    template: kali-x64-desktop-template
+    vlan: 99
+    ip_last_octet: 109
+    ram_gb: 8
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: false
+  - vm_name: "{{ range_id }}-kal-10"
+    hostname: "{{ range_id }}-kali10"
+    template: kali-x64-desktop-template
+    vlan: 99
+    ip_last_octet: 110
+    ram_gb: 8
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: true
+      block_internet: false
+#  - vm_name: "{{ range_id }}-kali11"
+#    hostname: "{{ range_id }}-kali11"
+#    template: kali-x64-desktop-template
+#    vlan: 99
+#    ip_last_octet: 111
+#    ram_gb: 8
+#    cpus: 4
+#    linux: true
+#    testing:
+#      snapshot: true
+#      block_internet: false
+#  - vm_name: "{{ range_id }}-kali-12"
+#    hostname: "{{ range_id }}-kali12"
+#    template: kali-x64-desktop-template
+#    vlan: 99
+#    ip_last_octet: 112
+#    ram_gb: 8
+#    cpus: 4
+#    linux: true
+#    testing:
+#      snapshot: true
+#      block_internet: false
+#  - vm_name: "{{ range_id }}-kali-13"
+#    hostname: "{{ range_id }}-kali13"
+#    template: kali-x64-desktop-template
+#    vlan: 99
+#    ip_last_octet: 113
+#    ram_gb: 8
+#    cpus: 4
+#    linux: true
+#    testing:
+#      snapshot: true
+#      block_internet: false
