@@ -4,9 +4,6 @@
 # ludus ansible role add aleemladha.ludus_wazuh_agent
 # ludus ansible role add geerlingguy.docker
 # ludus ansible role add badsectorlabs.ludus_adcs
-# ludus ansible role add 
-# ludus ansible role add
-# ludus ansible role add
 #
 ludus:
   - vm_name: "{{ range_id }}-ad-dc"
