@@ -1,4 +1,6 @@
-# the user name for the gui is admin
+# ludus ansible role add badsectorlabs.ludus_bloodhound_ce
+#the user name for the gui is admin
+#
 ludus:
   - vm_name: "{{ range_id }}-bloodhound"
     hostname: "{{ range_id }}-bloodhound"
