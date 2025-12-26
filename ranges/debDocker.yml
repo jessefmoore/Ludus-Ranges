@@ -2,6 +2,7 @@
 # ludus ansible roles add badsectorlabs.ludus_vulhub --user JM
 # ludus range config set -f debdocker.yml --user JM
 # ludus range deploy --user JM
+# ludus range deploy -t user-defined-roles --user JM
 #
 ludus:
   - vm_name: "{{ range_id }}-debDocker"
