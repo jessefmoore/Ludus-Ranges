@@ -13,3 +13,7 @@ ludus:
     linux: true
     roles:
       - geerlingguy.docker
+      - badsectorlabs.ludus_vulhub
+    role_vars:
+      vulhub_envs:
+        - pwnscriptum
