@@ -1,6 +1,6 @@
 ludus:
   - vm_name: "{{ range_id }}-win2022"
-    hostname: win22"
+    hostname: "win22"
     template: win2022-server-x64-template
     vlan: 10
     ip_last_octet: 22
