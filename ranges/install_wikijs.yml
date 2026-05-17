@@ -1,0 +1,96 @@
+# ansible-playbook -i hosts2.yml install_wikijs.yml -K
+---
+- name: Install Wiki.js via Docker
+  hosts: wiki_server
+  become: true
+  gather_facts: true
+  vars:
+    ansible_ssh_private_key_file: /home/debian/ansible
+    app_dir: "/opt/wikijs"
+
+  tasks:
+    - name: Force release of apt locks
+      ansible.builtin.shell: |
+        sudo fuser -k /var/lib/dpkg/lock-frontend || true
+        sudo fuser -k /var/lib/apt/lists/lock || true
+        sudo rm -f /var/lib/dpkg/lock-frontend /var/lib/apt/lists/lock
+      changed_when: false
+
+    - name: Update apt cache manually
+      ansible.builtin.shell: apt-get update
+      changed_when: false
+
+    - name: Clean up broken Docker configs
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /etc/apt/sources.list.d/docker.list
+        - /etc/apt/keyrings/docker.gpg
+        - /etc/apt/keyrings/docker.asc
+
+    - name: Install Docker dependencies
+      ansible.builtin.shell: apt-get install -y ca-certificates curl gnupg lsb-release
+
+    - name: Add Docker GPG key
+      ansible.builtin.shell: |
+        install -m 0755 -d /etc/apt/keyrings
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+        chmod a+r /etc/apt/keyrings/docker.asc
+      args:
+        creates: /etc/apt/keyrings/docker.asc
+
+    - name: Add Docker repository
+      ansible.builtin.shell: |
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+
+    - name: Install Docker Engine
+      ansible.builtin.apt:
+        name: [docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin]
+        state: present
+        update_cache: yes
+
+    - name: Create app directory
+      ansible.builtin.file:
+        path: "{{ app_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Create official docker-compose.yml
+      ansible.builtin.copy:
+        dest: "{{ app_dir }}/docker-compose.yml"
+        content: |
+          services:
+            db:
+              image: postgres:15-alpine
+              environment:
+                POSTGRES_DB: wiki
+                POSTGRES_PASSWORD: wikijsrocks
+                POSTGRES_USER: wikijs
+              logging:
+                driver: none
+              restart: unless-stopped
+              volumes:
+                - db-data:/var/lib/postgresql/data
+            wiki:
+              image: ghcr.io/requarks/wiki:2
+              depends_on:
+                - db
+              init: true
+              environment:
+                DB_TYPE: postgres
+                DB_HOST: db
+                DB_PORT: 5432
+                DB_USER: wikijs
+                DB_PASS: wikijsrocks
+                DB_NAME: wiki
+              restart: unless-stopped
+              ports:
+                - "80:3000"
+          volumes:
+            db-data:
+
+    - name: Run Docker Compose
+      ansible.builtin.shell: docker compose up -d
+      args:
+        chdir: "{{ app_dir }}"
