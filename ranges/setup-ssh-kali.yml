@@ -1,0 +1,31 @@
+# ansible-playbook setup_ssh.yml
+# 05-17-2026 Jesseee
+---
+- name: Distribute SSH keys to Kali hosts
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Create dynamic inventory for 10.6.10.101-110
+      ansible.builtin.add_host:
+        name: "{{ '10.6.10.' + item | string }}"
+        groups: target_hosts
+        ansible_user: kali
+        ansible_password: kali
+        ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+        # Force the remote to use system python instead of the local venv path
+        ansible_python_interpreter: "/usr/bin/python3"
+      loop: "{{ range(101, 111) | list }}"
+
+- name: Apply Public Key to all targets
+  hosts: target_hosts
+  gather_facts: false
+  become: false
+  
+  tasks:
+    - name: Add SSH key to remote hosts
+      ansible.builtin.authorized_key:
+        user: kali
+        state: present
+        key: "{{ lookup('file', 'ansible.pub') }}"
