@@ -1,0 +1,88 @@
+# ludus ansible roles add badsectorlabs.ludus_vulhub
+# ludus range config set -f metasploit-lab.yml
+# ludus range deploy --user <USERIDhere>
+ludus:
+  # --- Scenario 1: vulnerable Linux target (Vulhub) ------------------------
+  - vm_name: "{{ range_id }}-vulhub"
+    hostname: "{{ range_id }}-vulhub"
+    template: debian-12-x64-server-template
+    vlan: 10
+    ip_last_octet: 21
+    ram_gb: 6        # bump toward 8-10 if you enable the Java middleware envs below
+    cpus: 4
+    linux: true
+    testing:
+      snapshot: false
+      block_internet: false
+    roles:
+      - badsectorlabs.ludus_vulhub
+    role_vars:
+      # Each entry is a Vulhub environment (https://github.com/vulhub/vulhub) that
+      # maps to a real Metasploit module — so students can pick a service, find its
+      # module, and exploit it end-to-end through MetasploitMCP.
+      #
+      # NOTE: each env is a Docker stack that binds host ports. Several web envs
+      # share :80 / :8080, so they CANNOT all run at once. The ACTIVE set below is
+      # chosen to be light and port-distinct. To use one from the CATALOG, comment
+      # an active entry out and uncomment the catalog one (mind the port column).
+      # Verify live ports on the box with `docker ps`.
+      #
+      # ---- ACTIVE set — VERIFIED deploying on this lab ------------------------
+      # IMPORTANT: the Ludus vulhub role deploys each env with network_mode:host
+      # and strips the compose port mappings, so a service binds its INTERNAL
+      # port, NOT the docker-compose host mapping. Ports below are the ACTUAL
+      # listening ports confirmed on the box (10.20.10.21). Conflicts are on the
+      # internal port (e.g. anything using Apache binds :80 — only one at a time).
+      vulhub_envs:
+        - samba/CVE-2017-7494      # :139,445 -> exploit/linux/samba/is_known_pipename  (SambaCry)
+        - bash/CVE-2014-6271       # :80 /victim.cgi -> exploit/multi/http/apache_mod_cgi_bash_env_exec (Shellshock)
+        - redis/4-unacc            # :6379    -> exploit/linux/redis/redis_replication_cmd_exec
+        - supervisor/CVE-2017-11610  # :9001  -> exploit/linux/http/supervisor_xmlrpc_exec
+      # NOTE: the vsftpd 2.3.4 backdoor (PDF Scenario 1) is NOT a vulhub env — it
+      # is a Metasploitable2 service. For exploit/unix/ftp/vsftpd_234_backdoor,
+      # deploy a Metasploitable target instead of expecting it here.
+      #
+      # ---- CATALOG: more Vulhub envs -> Metasploit modules -----------------------
+      # Web-app RCEs (most bind :80 or :8080 — enable ONE web env at a time):
+      #   - php/CVE-2012-1823      # :8080 (conflicts with bash above) -> exploit/multi/http/php_cgi_arg_injection
+      #   - drupal/CVE-2018-7600   # :80    -> exploit/unix/webapp/drupal_drupalgeddon2
+      #   - struts2/s2-045         # :8080  -> exploit/multi/http/struts2_content_type_ognl (CVE-2017-5638)
+      #   - struts2/s2-048         # :8080  -> exploit/multi/http/struts2_code_exec_showcase (CVE-2017-9791)
+      #   - tomcat/CVE-2017-12615  # :8080  -> exploit/multi/http/tomcat_jsp_upload_bypass
+      #   - tomcat/tomcat8         # :8080  -> exploit/multi/http/tomcat_mgr_upload (weak manager creds)
+      #   - jenkins/CVE-2018-1000861  # :8080 -> exploit/multi/http/jenkins_metaprogramming
+      #   - spring/CVE-2022-22965  # :8080  -> exploit/multi/http/spring_framework_rce_spring4shell (Spring4Shell)
+      #   - log4j/CVE-2021-44228   # :8080  -> exploit/multi/http/log4shell_header_injection (Log4Shell)
+      #   - gitlab/CVE-2021-22205  # :80    -> exploit/multi/http/gitlab_exiftool_rce
+      # Java middleware (RAM-heavy — raise ram_gb before enabling several):
+      #   - weblogic/CVE-2017-10271  # :7001 -> exploit/multi/misc/weblogic_deserialize_asyncresponseservice
+      #   - activemq/CVE-2016-3088   # :8161 -> exploit/multi/http/apache_activemq_upload_jsp
+      #   - solr/CVE-2019-17558      # :8983 -> exploit/multi/http/solr_velocity_rce
+      #   - couchdb/CVE-2017-12636   # :5984 -> exploit/linux/http/apache_couchdb_cmd_exec
+      # File-format (no listening service; build a malicious file, no RHOSTS):
+      #   - imagemagick/CVE-2016-3714  # n/a -> exploit/unix/fileformat/imagemagick_delegate (ImageTragick)
+
+  # --- Scenario 2: Windows Active Directory Domain Controller --------------
+    # and you only want the Linux scenario.
+  - vm_name: "{{ range_id }}-dc"
+    hostname: "{{ range_id }}-DC"
+    template: win2019-server-x64-template
+    vlan: 10
+    ip_last_octet: 11
+    ram_gb: 4
+    cpus: 2
+    windows:
+      sysprep: false
+    domain:
+      fqdn: meta.lab
+      role: primary-dc
+
+  # --- Optional: in-range Kali attacker box --------------------------------
+  # - vm_name: "{{ range_id }}-kali"
+  #   hostname: "{{ range_id }}-kali"
+  #   template: kali-x64-desktop-template
+  #   vlan: 10
+  #   ip_last_octet: 99
+  #   ram_gb: 8
+  #   cpus: 4
+  #   linux: true
