@@ -3,7 +3,8 @@
 # ludus ansible role add PrymalInstynct.ludus_ctfd --user CTFD 
 # ludus ansible role add geerlingguy.docker --user CTFD
 # ludus range config set -f ctfd.yml --user CTFD
-# ludus range deploy --user CTFD
+# ludus range deploy -r CTFD
+# ludus range logs CTFD -f
 #
 ludus:
   - vm_name: "{{ range_id }}-ctfd"
