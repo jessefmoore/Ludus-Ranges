@@ -5,6 +5,7 @@
 # ludus range config set -f ctfd.yml -r CTFD
 # ludus range deploy -r CTFD
 # ludus range logs -r CTFD -f
+# Setup the CTFd challenges by going to http://YOUR_IP/setup
 #
 ludus:
   - vm_name: "{{ range_id }}-ctfd"
