@@ -6,7 +6,7 @@
 # ludus range deploy -r CTFD
 # ludus range logs -r CTFD -f
 # Setup the CTFd challenges by going to http://YOUR_IP/setup
-# To let in your KALI RANGE then at router config with iptables
+# To let in your KALI RANGE then add router config with iptables
 # router:
 #iptables_commands:
 #- iptables -I LUDUS_DEFAULTS -i ens18 -s 192.0.2.106 -j ACCEPT
