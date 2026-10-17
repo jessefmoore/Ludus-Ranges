@@ -4,7 +4,7 @@
 # ludus ansible role add geerlingguy.docker -r CTFD
 # ludus range config set -f ctfd.yml -r CTFD
 # ludus range deploy -r CTFD
-# ludus range logs CTFD -f
+# ludus range logs -r CTFD -f
 #
 ludus:
   - vm_name: "{{ range_id }}-ctfd"
