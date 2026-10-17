@@ -1,8 +1,8 @@
 # updated for Ludus v2
 # ludus range create -n CTFD -r CTFD
-# ludus ansible role add PrymalInstynct.ludus_ctfd --user CTFD 
-# ludus ansible role add geerlingguy.docker --user CTFD
-# ludus range config set -f ctfd.yml --user CTFD
+# ludus ansible role add PrymalInstynct.ludus_ctfd -r CTFD 
+# ludus ansible role add geerlingguy.docker -r CTFD
+# ludus range config set -f ctfd.yml -r CTFD
 # ludus range deploy -r CTFD
 # ludus range logs CTFD -f
 #
