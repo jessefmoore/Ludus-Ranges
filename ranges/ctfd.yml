@@ -6,6 +6,9 @@
 # ludus range deploy -r CTFD
 # ludus range logs -r CTFD -f
 # Setup the CTFd challenges by going to http://YOUR_IP/setup
+# router:
+#iptables_commands:
+#- iptables -I LUDUS_DEFAULTS -i ens18 -s 192.0.2.106 -j ACCEPT
 #
 ludus:
   - vm_name: "{{ range_id }}-ctfd"
@@ -19,3 +22,6 @@ ludus:
     roles:
       - geerlingguy.docker
       - PrymalInstynct.ludus_ctfd
+#    router:
+#      iptables_commands:
+#        - iptables -I LUDUS_DEFAULTS -i ens18 -s 192.0.2.106 -j ACCEPT
